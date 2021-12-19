@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31829.152
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "classFractionOOP", "classFractionOOP.vcxproj", "{D8212B9D-76B1-4582-AC77-495892088937}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "classFractionOOP", "classFractionOOP\classFractionOOP.vcxproj", "{D8212B9D-76B1-4582-AC77-495892088937}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "classString", "..\classString\classString.vcxproj", "{1625DE7A-B224-4171-B2AD-1BA0EC21701C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "classString", "classString\classString.vcxproj", "{1625DE7A-B224-4171-B2AD-1BA0EC21701C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
