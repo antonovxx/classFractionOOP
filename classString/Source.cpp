@@ -26,31 +26,31 @@ public:
 	{
 		return str;
 	}
-	explicit String(int size = 80) // Implicit conversion is prohibited
+	explicit String(int size = 80) :size(size), str(new char[size] {}) // Implicit conversion is prohibited
 	{
-		this->size = size;
-		this->str = new char[size] {}; // the memory allocated for the string must be zeroed
+		//this->size = size;
+		//this->str = new char[size] {}; // the memory allocated for the string must be zeroed
 		cout << "Constructor: \t" << this << endl;
 	}
-	String(const char str[])
+	String(const char str[]):String(strlen(str) + 1)
 	{
-		this->size = strlen(str) + 1; // + 1 for terminated zero in the end of the array of characters
-		this->str = new char[size] {};
+		//this->size = strlen(str) + 1; // + 1 for terminated zero in the end of the array of characters
+		//this->str = new char[size] {};
 		for (size_t i = 0; str[i]; i++)
 		{
 			this->str[i] = str[i];
 		}
 		cout << "Constructor:\t" << this << endl;
 	}
-	String(const String& other) // copy-constructor
+	String(const String& other):String(other.str) // copy-constructor
 	{
 		// Deep copy 
-		this->size = other.size;
-		this->str = new char[size] {};
-		for (size_t i = 0; i < size; i++)
-		{
-			this->str[i] = other.str[i];
-		}
+		//this->size = other.size;
+		//this->str = new char[size] {};
+		//for (size_t i = 0; i < size; i++)
+		//{
+		//	this->str[i] = other.str[i];
+		//}
 		cout << "CopyConstructor: \t" << this << endl;
 	}
 	~String()
@@ -117,7 +117,8 @@ String operator+(const String& left, const String& right)
 }
 
 //#define CONSTRUCTORS_CHECK
-//#define OPERATORS_CHECK
+#define OPERATORS_CHECK
+//#define INPUT_CHECK
 
 std::ostream& operator<< (std::ostream& os, const String& obj) // cout is an object of the ostream
 // we cannot duplicate streams of output, so we need use the reference here
@@ -168,7 +169,7 @@ void main()
 	cout << str5 << endl;
 #endif // CONSTRUCTORS_CHECK
 
-#if OPERATORS_CHECK
+#ifdef OPERATORS_CHECK
 	String str1 = "Hello";
 	String str2 = "World";
 	cout << delimiter << endl;
@@ -179,12 +180,16 @@ void main()
 	str1 += str2;
 	cout << delimiter << endl;
 	cout << str1 << endl;
+
 #endif // OPERATORS_CHECK
 
+#if INPUT_CHECK
 	String str;
 	cout << "Enter the line: " << endl;
 	//cin >> str;
 	getline(cin, str);
 	cout << str << endl;
 	str.print();
+#endif // INPUT_CHECK
+
 }
