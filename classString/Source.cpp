@@ -5,99 +5,137 @@ using std::endl;
 
 #define delimiter "\n-------------------------------------------\n"
 
+
+/// <summary>
+/// CLASS DECLARATION
+/// </summary>
+
+
 class String;
 String operator+(const String& left, const String& right);
 
 class String
 {
-	int size; // size of the string in bytes
-	char* str; // adress in the dynamic memory
+	int size; 
+	char* str; 
 public:
-	int get_size()const
-	{
-		return size;
-	}
-	const char* get_str() const // this is constant method for encapsulation
-		// returns the constant pointer
-	{
-		return str;
-	}
-	char* get_str() // unconstant method
-	{
-		return str;
-	}
-	explicit String(int size = 80) :size(size), str(new char[size] {}) // Implicit conversion is prohibited
-	{
-		//this->size = size;
-		//this->str = new char[size] {}; // the memory allocated for the string must be zeroed
-		cout << "Constructor: \t" << this << endl;
-	}
-	String(const char str[]):String(strlen(str) + 1)
-	{
-		//this->size = strlen(str) + 1; // + 1 for terminated zero in the end of the array of characters
-		//this->str = new char[size] {};
-		for (size_t i = 0; str[i]; i++)
-		{
-			this->str[i] = str[i];
-		}
-		cout << "Constructor:\t" << this << endl;
-	}
-	String(const String& other):String(other.str) // copy-constructor
-	{
-		// Deep copy 
-		//this->size = other.size;
-		//this->str = new char[size] {};
-		//for (size_t i = 0; i < size; i++)
-		//{
-		//	this->str[i] = other.str[i];
-		//}
-		cout << "CopyConstructor: \t" << this << endl;
-	}
-	~String()
-	{
-		delete[] str;
-		cout << "Destructor:\t" << this << endl;
-	}
+	int get_size()const;
+	const char* get_str() const; 
+		
+	char* get_str(); 
+
+	explicit String(int size = 80);
+
+	String(const char str[]);
+
+	String(const String& other);
+
+	~String();
+
 	// Operators
-	String& operator= (const String& other)
-	{
-		// We check this and other if it is the same object
-		if (this == &other) return *this; // Any assignment operator strats from this
-		delete[] this->str; // then we delete last oject of the memory
-		// Then just copy code from copy constructor
-		this->size = other.size;
-		this->str = new char[size] {};
-		for (size_t i = 0; i < size; i++)
-		{
-			this->str[i] = other.str[i];
-		}
-		cout << "CopyAssignment: \t" << this << endl;
-		return *this; 
-	}
+	String& operator= (const String& other);
 
-	String& operator+= (const String& other)
-	{
-		return *this = *this + other;
-	}
+	String& operator+= (const String& other);
 
-	const char& operator[](int i)const
-	{
-		return str[i];
-	}
+	const char& operator[](int i)const;
 
-	char& operator[](int i)
-	{
-		return str[i];
-	}
+	char& operator[](int i);
 
 	// Methods
 
-	void print() const
-	{
-		cout << "Size: " << size << endl;
-		cout << "Str: \t" << str << endl;
-	}
+	void print() const;
 };
+
+/// <summary>
+/// CLASS DECLARATION - END
+/// </summary>
+/// <returns></returns>
+
+int String::get_size()const
+{
+	return size;
+}
+const char* String::get_str() const // this is constant method for encapsulation
+	// returns the constant pointer
+{
+	return str;
+}
+char* String::get_str() // unconstant method
+{
+	return str;
+}
+String::String(int size) :size(size), str(new char[size] {}) // Implicit conversion is prohibited
+{
+	//this->size = size;
+	//this->str = new char[size] {}; // the memory allocated for the string must be zeroed
+	cout << "Constructor: \t" << this << endl;
+}
+String::String(const char str[]) :String(strlen(str) + 1)
+{
+	//this->size = strlen(str) + 1; // + 1 for terminated zero in the end of the array of characters
+	//this->str = new char[size] {};
+	for (size_t i = 0; str[i]; i++)
+	{
+		this->str[i] = str[i];
+	}
+	cout << "Constructor:\t" << this << endl;
+}
+String::String(const String& other) :String(other.str) // copy-constructor
+{
+	// Deep copy 
+	//this->size = other.size;
+	//this->str = new char[size] {};
+	//for (size_t i = 0; i < size; i++)
+	//{
+	//	this->str[i] = other.str[i];
+	//}
+	cout << "CopyConstructor: \t" << this << endl;
+}
+String::~String()
+{
+	delete[] str;
+	cout << "Destructor:\t" << this << endl;
+}
+// Operators
+String& String::operator= (const String& other)
+{
+	// We check this and other if it is the same object
+	if (this == &other) return *this; // Any assignment operator strats from this
+	delete[] this->str; // then we delete last oject of the memory
+	// Then just copy code from copy constructor
+	this->size = other.size;
+	this->str = new char[size] {};
+	for (size_t i = 0; i < size; i++)
+	{
+		this->str[i] = other.str[i];
+	}
+	cout << "CopyAssignment: \t" << this << endl;
+	return *this;
+}
+
+String& String::operator+= (const String& other)
+{
+	return *this = *this + other;
+}
+
+const char& String::operator[](int i)const
+{
+	return str[i];
+}
+
+char& String::operator[](int i)
+{
+	return str[i];
+}
+
+// Methods
+
+void String::print()const
+{
+	cout << "Size: " << size << endl;
+	cout << "Str: \t" << str << endl;
+}
+
 
 String operator+(const String& left, const String& right)
 {
