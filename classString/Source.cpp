@@ -30,12 +30,27 @@ public:
 
 	String(const String& other);
 
+	String(String&& other)noexcept
+	{
+		//// Move-Constructor - do shallow copy
+		//this->size = other.size;
+		//this->str = other.str; //просто копируем адрес памяти, принадлежащей другому объекту
+		//// Зануляем другой объект, чтобы его память не смог удалить деструктор
+		//other.size = 0;
+		//other.str = nullptr;
+		this->str = nullptr;
+		*this = std::move(other);
+		cout << "Move - constructor" << this << endl;
+	}
+
 	~String();
 
 	// Operators
 	String& operator= (const String& other);
 
 	String& operator+= (const String& other);
+
+	String& operator=(String&& other)noexcept;
 
 	const char& operator[](int i)const;
 
@@ -91,6 +106,8 @@ String::String(const String& other) :String(other.str) // copy-constructor
 	//}
 	cout << "CopyConstructor: \t" << this << endl;
 }
+
+
 String::~String()
 {
 	delete[] str;
@@ -110,6 +127,18 @@ String& String::operator= (const String& other)
 		this->str[i] = other.str[i];
 	}
 	cout << "CopyAssignment: \t" << this << endl;
+	return *this;
+}
+
+String& String::operator=(String&& other)noexcept
+{
+	delete this->str;
+	this->size = other.size;
+	this->str = other.str;
+
+	other.size = 0;
+	other.str = 0;
+	cout << "MoveAssignment: \t" << this << endl;
 	return *this;
 }
 
@@ -211,13 +240,14 @@ void main()
 	String str1 = "Hello";
 	String str2 = "World";
 	cout << delimiter << endl;
-	String str3 = str1 + str2;
+	String str3;
+	str3 = str1 + str2;
 	cout << delimiter << endl;
 	cout << str3 << endl;
 	cout << delimiter << endl;
-	str1 += str2;
-	cout << delimiter << endl;
-	cout << str1 << endl;
+//	str1 += str2;
+//	cout << delimiter << endl;
+//	cout << str1 << endl;
 
 #endif // OPERATORS_CHECK
 
